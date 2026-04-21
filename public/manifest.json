@@ -1,0 +1,21 @@
+{
+  "background_color": "white",
+  "theme_color": "#117ACA",
+  "description": "Find up-to-date wait times for hospitals around the nation",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "298x298"
+    }
+  ],
+  "name": "HealthDesk",
+  "short_name": "HealthDesk",
+  "start_url": "/"
+}

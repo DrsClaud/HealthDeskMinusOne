@@ -1,0 +1,8 @@
+16:11:29.607 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+16:11:29.729 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+16:11:39.225 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - caremap2020 successfully activated FBKV (SurveyIdle(0)) wait: 119ms, init: 0ms
+16:11:39.279 [NamespaceSystem-blocking-namespace-operation-dispatcher-8] INFO com.firebase.core.namespace.StateManager - Namespace caremap2020 status Active to Active
+16:15:08.369 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+16:15:08.373 [NamespaceSystem-akka.actor.default-dispatcher-13] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: caremap2020
+16:15:08.379 [NamespaceSystem-akka.actor.default-dispatcher-13] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for caremap2020
+16:15:08.382 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

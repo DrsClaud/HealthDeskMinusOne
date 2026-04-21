@@ -1,0 +1,58 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── HELPER FUNCTIONS ───────────────────────────────────────────────────
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isUnder10MB() {
+      return request.resource.size < 10 * 1024 * 1024;
+    }
+
+    function isUnder5MB() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // ─── LOGOS ──────────────────────────────────────────────────────────────
+    // Public-read org/user logos. Authenticated users may only write their own.
+    match /assets/images/logos/{fileName} {
+      allow read: if true;
+      // Use == not matches() — matches() is regex and '.' would match any char
+      allow create, update: if isLoggedIn()
+        && isImage()
+        && isUnder5MB()
+        && (fileName == request.auth.uid + '.jpg' || fileName == request.auth.uid + '.png');
+      allow delete: if false;
+    }
+
+    // ─── PATIENT REGISTRATION PHOTO IDs ─────────────────────────────────────
+    // All writes handled server-side by submitPatientRegistration cloud function
+    // (Admin SDK bypasses rules). Clients — including unauthenticated patients —
+    // have zero write access here.
+    // userId = facility staff uid who created the registration.
+    match /registrations/{userId}/{fileName} {
+      allow read: if isLoggedIn() && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // Consent forms: only the facility staff owner can read/write.
+    // Deletion is blocked — HIPAA requires 6-year record retention.
+    match /registrations/{userId}/consent_forms/{fileName} {
+      allow read: if isLoggedIn() && request.auth.uid == userId;
+      allow create: if isLoggedIn() && request.auth.uid == userId && isUnder10MB();
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // ─── DEFAULT DENY ───────────────────────────────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

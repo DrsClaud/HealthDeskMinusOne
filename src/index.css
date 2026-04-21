@@ -1,0 +1,160 @@
+* {
+  box-sizing: border-box;
+}
+
+@supports (font: -apple-system-body) {
+  html {
+    font: -apple-system-body;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+a {
+  color: #117aca;
+  text-decoration: none;
+}
+
+a .MuiListItemText-primary {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.cs-main-container {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor {
+  background-color: #f6f7f8 !important;
+  color: #212121 !important;
+}
+
+.cs-message--incoming .cs-message__content {
+  background-color: #f6f7f8 !important;
+  color: #212121 !important;
+}
+
+.cs-message__content {
+  font-size: 1rem !important;
+}
+
+.cs-message-input__content-editor-wrapper {
+  padding: 0.9rem !important;
+}
+
+.cs-button {
+  padding: 0.55em 0.7em !important;
+}
+
+.cs-message-input .cs-button {
+  position: absolute;
+}
+
+.cs-submit {
+  right: 0;
+}
+
+.cs-chat-container .cs-message-input {
+  border-top: 0 !important;
+  padding: 0.8em 0 0 !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  max-width: 1024px !important;
+  margin: auto !important;
+}
+
+.cs-message-list {
+  padding-bottom: 5rem !important;
+}
+
+.scrollbar-container.cs-message-list__scroll-wrapper {
+  padding-left: 0 !important;
+  padding-right: 12px !important;
+}
+
+.cs-chat-container .cs-message-input .cs-message-input__content-editor-wrapper:first-child {
+  margin-left: 0 !important;
+}
+
+.cs-message-input {
+  z-index: 999 !important;
+}
+
+.cs-message-list .cs-typing-indicator {
+  bottom: 54px !important;
+}
+
+.cs-button:hover:not(:disabled) {
+  opacity: 1 !important;
+}
+
+.ps__rail-y {
+  margin-top: 15px;
+  height: calc(100% - 40px) !important;
+}
+
+.ps__rail-y:before {
+  height: 8px;
+  width: 10px;
+  background-position: center 4px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='50,00 0,50 100,50'/></svg>");
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -13px;
+  right: 0;
+}
+/* 
+.ps__rail-y:after {
+  height: 8px;
+  width: 10px;
+  background-position: center 4px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='0,0 100,0 50,50'/></svg>");
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+} */
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Safari */
+  -khtml-user-select: none;    /* Konqueror HTML */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}

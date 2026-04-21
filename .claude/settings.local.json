@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(firebase deploy:*)",
+      "Bash(gcloud auth:*)",
+      "Bash(firebase:*)",
+      "Bash(cd:*)",
+      "Bash(gcloud logging:*)",
+      "Bash(cd C:/Github/danieldad_healtdesk)",
+      "WebSearch",
+      "WebFetch(domain:firebase.google.com)",
+      "Bash(cat:*)",
+      "Bash(gcloud functions:*)",
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(for fn:*)",
+      "Bash(gh run:*)",
+      "Bash(npx react-scripts:*)"
+    ]
+  }
+}

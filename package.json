@@ -1,0 +1,221 @@
+{
+  "name": "hlthdsk",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@10.5.0",
+  "overrides": {
+    "form-data": "^4.0.4",
+    "protobufjs": "^6.11.4",
+    "serialize-javascript": "^6.0.1",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "@grpc/grpc-js": "^1.8.22",
+    "@tootallnate/once": "2.0.0"
+  },
+  "dependencies": {
+    "@algolia/autocomplete-js": "^1.17.0",
+    "@algolia/autocomplete-theme-classic": "^1.17.0",
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
+    "@date-io/date-fns": "2.16.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/federo": "^5.1.1",
+    "@fontsource/roboto": "^5.0.13",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/lab": "^5.0.0-alpha.170",
+    "@mui/material": "^5.15.20",
+    "@mui/system": "5",
+    "@mui/x-date-pickers": "^6.0.0",
+    "@sentry/browser": "^7.107.0",
+    "@stripe/react-stripe-js": "^2.6.2",
+    "@stripe/stripe-js": "^3.0.10",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "algolia-places-react": "^1.6.1",
+    "algoliasearch": "^4.22.1",
+    "axios": "^1.15.0",
+    "chart.js": "^4.5.0",
+    "d3": "^5.5.0",
+    "date-fns": "2.29.3",
+    "date-fns-tz": "1.3.7",
+    "firebase": "^10.9.0",
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^4.8.0",
+    "geofirestore": "^5.2.0",
+    "html-react-parser": "^5.1.10",
+    "import": "^0.0.6",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "lodash": "^4.17.21",
+    "ngeohash": "^0.6.3",
+    "node-cron": "^3.0.3",
+    "notistack": "^3.0.1",
+    "overlayscrollbars": "^2.6.1",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-calendar": "^4.8.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-csv-reader": "^4.0.0",
+    "react-d3-graph": "^2.6.0",
+    "react-date-range": "^1.4.0",
+    "react-dom": "^18.2.0",
+    "react-dom-camera": "^0.3.5",
+    "react-firebase-hooks": "^5.1.1",
+    "react-force-graph-2d": "^1.27.1",
+    "react-hook-form": "^7.51.0",
+    "react-icons": "^5.1.0",
+    "react-image-file-resizer": "^0.4.8",
+    "react-imask": "^7.6.1",
+    "react-instantsearch": "^7.7.0",
+    "react-leaflet": "^4.2.1",
+    "react-leaflet-draw": "^0.20.6",
+    "react-linkedin-insight": "^0.1.3",
+    "react-markdown": "^9.1.0",
+    "react-pdf": "^7.7.1",
+    "react-phone-number-input": "^3.4.12",
+    "react-recaptcha-v3": "^2.0.1",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "react-search-autocomplete": "^8.5.2",
+    "react-select": "^5.8.0",
+    "react-share": "^5.1.0",
+    "react-slick": "^0.30.2",
+    "react-speech-recognition": "^3.10.0",
+    "react-string-replace": "^1.1.1",
+    "react-swipeable": "^7.0.1",
+    "react-table": "^7.8.0",
+    "react-zoom-pan-pinch": "^3.4.3",
+    "remark-gfm": "^4.0.0",
+    "sitemap": "^7.1.1",
+    "styled-components": "^6.1.8",
+    "use-debounce": "^10.0.0",
+    "use-places-autocomplete": "^4.0.1",
+    "util": "file:functions/util"
+  },
+  "scripts": {
+    "start": "env-cmd -f .env.sandbox react-scripts start",
+    "start:staging": "env-cmd -f .env.development react-scripts start",
+    "server": "env-cmd -f .env.development node --experimental-modules functions/test_express.js",
+    "test_functions": "env-cmd -f .env.development node --experimental-modules functions/test_express.js",
+    "build": "sh -ac '. .env.${REACT_APP_ENV}; react-scripts build'",
+    "build:sandbox": "env-cmd -f .env.sandbox react-scripts build",
+    "build:staging": "env-cmd -f .env.development react-scripts build",
+    "build:production": "env-cmd -f .env.production react-scripts build",
+    "deploy:sandbox": "npm run build:sandbox && firebase deploy --only functions,firestore,storage,hosting:sandbox -P sandbox",
+    "deploy:staging": "npm run build:staging && firebase deploy --only functions,firestore,storage,hosting:staging -P sandbox",
+    "deploy:prod": "npm run build:production && firebase deploy --only functions,firestore,storage,hosting:production -P prod",
+    "deploy:hsandbox": "npm run build:sandbox && firebase deploy --only hosting:sandbox -P sandbox",
+    "deploy:hstaging": "npm run build:staging && firebase deploy --only hosting:staging -P sandbox",
+    "deploy:hprod": "npm run build:production && firebase deploy --only hosting:production -P prod",
+    "test": "react-scripts test --passWithNoTests --watchAll=false \"--testPathIgnorePatterns=<rootDir>/src/tests/cloud/\"",
+    "test:watch": "react-scripts test --passWithNoTests \"--testPathIgnorePatterns=<rootDir>/src/tests/cloud/\"",
+    "test:coverage": "react-scripts test --coverage --watchAll=false \"--testPathIgnorePatterns=<rootDir>/src/tests/cloud/\"",
+    "test:ci": "react-scripts test --ci --coverage --watchAll=false \"--testPathIgnorePatterns=<rootDir>/src/tests/cloud/\"",
+    "test:all": "react-scripts test --passWithNoTests --watchAll=false",
+    "test:all:watch": "react-scripts test --passWithNoTests",
+    "test:all:coverage": "react-scripts test --coverage --passWithNoTests --watchAll=false",
+    "test:all:ci": "react-scripts test --ci --coverage --watchAll=false",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "eject": "react-scripts eject",
+    "full": "concurrently \"npm run server\" \"react-scripts start\"",
+    "storybook": "BROWSER='' storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build",
+    "knip": "knip"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js",
+      "!src/setupTests.js",
+      "!src/**/*.stories.{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 50,
+        "branches": 50,
+        "functions": 50,
+        "lines": 50
+      }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-leaflet|@react-leaflet|leaflet)/)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "^react-leaflet/hooks$": "<rootDir>/src/__mocks__/empty-module.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:storybook/recommended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@chromatic-com/storybook": "^3.2.5",
+    "@eslint/eslintrc": "^3.2.0",
+    "@firebase/testing": "^0.20.11",
+    "@playwright/test": "^1.57.0",
+    "@storybook/addon-essentials": "^8.6.2",
+    "@storybook/addon-interactions": "^8.6.2",
+    "@storybook/addon-onboarding": "^8.6.2",
+    "@storybook/blocks": "^8.6.2",
+    "@storybook/preset-create-react-app": "^8.6.2",
+    "@storybook/react": "^8.6.2",
+    "@storybook/react-webpack5": "^8.6.2",
+    "@storybook/test": "^8.6.2",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^25.3.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "ajv": "^8.17.1",
+    "concurrently": "^8.2.2",
+    "env-cmd": "^10.1.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-storybook": "^0.11.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.2.0",
+    "jscodeshift": "^0.15.2",
+    "knip": "^5.84.1",
+    "msw": "^2.7.3",
+    "msw-storybook-addon": "^2.0.4",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.6.2",
+    "typescript": "^5.9.3",
+    "webpack": "^5.97.1"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

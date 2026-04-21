@@ -1,0 +1,28 @@
+{
+  "projects": {
+    "default": "hlthdsk-sandbox-2cc23",
+    "prod": "hlthdsk",
+    "sandbox": "hlthdsk-sandbox-2cc23",
+    "staging": "caremap2020"
+  },
+  "targets": {
+    "hlthdsk-sandbox-2cc23": {
+      "hosting": {
+        "sandbox": [
+          "hlthdsk-sandbox-2cc23"
+        ],
+        "staging": [
+          "staging-8257f"
+        ]
+      }
+    },
+    "hlthdsk": {
+      "hosting": {
+        "production": [
+          "hlthdsk"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

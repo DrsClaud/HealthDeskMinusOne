@@ -1,0 +1,31 @@
+name: QA-Gitleaks
+
+on:
+  push:
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Gitleaks
+        id: gitleaks
+        run: |
+          GITLEAKS_VERSION="8.21.0"
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar xz
+          chmod +x gitleaks
+          ./gitleaks detect --source ./src --report-path gitleaks-report.json --no-git
+        continue-on-error: true
+
+      - name: Upload Gitleaks report
+        if: steps.gitleaks.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
+          retention-days: 30
+
+      - name: Fail if leaks detected
+        if: steps.gitleaks.outcome == 'failure'
+        run: exit 1

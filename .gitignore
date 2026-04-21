@@ -1,0 +1,48 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/functions/coverage
+/playwright-report
+/test-results
+
+# production
+/build
+
+# misc
+/.vs
+/.firebase
+.DS_Store
+.env.local
+.env.development
+.env.sandbox
+.env.cloud-smoke
+.env.experimental
+.env.test.local
+.env.production
+.runtimeconfig.json
+
+# Firebase service account key (never commit — use for local scripts e.g. setAdminClaim.js)
+firebase-creds*.json
+functions/caremap*.json
+
+# Functions local env (never commit)
+functions/.env
+
+npm-debug.log*
+
+*storybook.log
+storybook-static/
+
+firestore-debug.log
+
+firebase-debug.log
+
+functions/firebase-debug.1.log
+
+ERROR'

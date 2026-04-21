@@ -1,0 +1,30 @@
+---
+alwaysApply: true
+---
+
+Here is some context of what this project is about:
+
+It's a health platform meant to help people with their health records and analysis
+
+
+
+
+# Components of the platform
+
+
+## Query manager
+
+This system/component is meant to allow managers of the plarform (there are various roles) to tweak, adapt, upload documents etc to different queries that then will be used across the platform to make medical diagnoses etc
+
+As a heads up, the query manager has these 2 sub components (among others):
+
+- **Clinical references**: The intention behind clinical references in the query manager is to have a system that indexes documents by tags, and then will retrieve them with tags during a conversation. The idea here is that then users will be able to click on them to download such documents when they are talking wiht the model
+
+- **Embedded documents**: Embedded documents on the other hand is meant to work as your standard RAG. We first upload documents, we index them in their corresponding databases in firestore, and as users call in the chat, in the process of generating an answer we will extract such document fragments to embed them inside of the output response generation
+
+
+## NLP
+
+The code that deals with procesing natural language is at \functions\src\nlp
+Any time that you need to implement a function that depends or deals with LLM calls on the cloud, go through here
+This one offers the benefit that it tracks usage and costs as well as having better testing coverage, this is why we prefer to use callLLMAPI

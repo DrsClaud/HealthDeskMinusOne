@@ -1,0 +1,28 @@
+name: QA-Critical-Vulnerabilities
+
+on:
+  push:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci --no-audit
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      # Exits 1 only when critical (or higher) vulns exist; moderate/high do not fail the job
+      - name: Audit for critical vulnerabilities
+        run: |
+          npm audit --audit-level=critical
+          echo "No critical vulnerabilities found."

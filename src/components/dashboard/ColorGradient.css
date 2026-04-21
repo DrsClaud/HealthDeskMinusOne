@@ -1,0 +1,16 @@
+.color-gradient {
+  position: relative;
+}
+
+.color-tooltip {
+  position: absolute;
+  background-color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  font-family: monospace;
+}

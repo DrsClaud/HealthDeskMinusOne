@@ -1,0 +1,23 @@
+---
+description: MUI usage — trust theme defaults; minimal variant props
+alwaysApply: true
+---
+
+# MUI and `src/config/theme.js`
+
+Global defaults are set on `muiTheme` (`MuiButton`, `MuiCard`, `MuiTextField`, `MuiSelect`). **Do not add `variant` (or redundant props) unless there is a deliberate UX reason**—for example a **secondary** action uses `variant="outlined"` or `contained`, or a **raised** surface needs `Card` with `variant="elevation"` and an `elevation` value.
+
+## Do
+
+- Omit `variant` on `Button`, `TextField`, `Select`, and `Card` when the default matches the design.
+- Use `sx` sparingly—mainly layout, spacing, responsive breakpoints—not to re-theme components.
+- Use `palette` and `typography` from the theme (`color="text.secondary"`, `primary.main`, typography variants). Avoid hard-coded hex colors unless truly one-off.
+
+## Don’t
+
+- Set `variant="outlined"` on every `TextField` or `variant="outlined"` on every `Card` “to be explicit”—the theme already does this where applicable.
+- Mix ad hoc `elevation` on `Card` without `variant="elevation"` when you want a shadow; with default `outlined` cards, `elevation` is ignored.
+
+## Raised cards / papers
+
+For dialogs, maps, or marketing surfaces that need shadow, pass **`variant="elevation"`** and **`elevation={...}`** explicitly on `Card` or use `Paper` with the desired `elevation`.

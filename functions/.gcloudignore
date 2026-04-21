@@ -1,0 +1,28 @@
+# Keep deploy upload small; Cloud Build runs npm install from package.json.
+node_modules
+.git
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+*.log
+*.local
+.env
+.env.*
+coverage
+.nyc_output
+
+# Editor / OS
+.vscode
+.idea
+.vs
+.DS_Store
+Thumbs.db
+
+# Tests & local Jest config (not used by Cloud Build)
+**/*.test.js
+jest.config.js
+
+# Never upload local Firebase config / keys if present under functions/
+.runtimeconfig.json
+firebase-creds.json

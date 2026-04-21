@@ -1,0 +1,14 @@
+---
+description: HealthDesk libraries and patterns
+alwaysApply: true
+---
+
+# Engineering conventions
+
+- **Forms:** Prefer **react-hook-form** for new forms and when refactoring existing ones; use **MUI + Controller** (or the project’s existing form helpers) instead of large batches of manual `useState` for field state.
+- **Dates:** Use **date-fns** (and existing utilities) for parsing, formatting, and arithmetic. Do not add custom date math or string parsers when date-fns can do the job.
+- **Styling:** Prefer **MUI** primitives and the shared theme; see the MUI rule for default props and `sx` discipline. Large clickable options: **`SelectableChoiceCard`** (`Paper` outlined + `ListItemButton` / `ListItemText`).
+- **Icons:** Prefer **MUI icons** (`@mui/icons-material`) for consistency with the rest of the app unless a screen already standardizes on something else.
+- **Loading:** **`LoadingButton`** (`@mui/lab`) on buttons; bare **`CircularProgress`** (no loading copy) elsewhere; **`src/components/Loading.js`** with `page` for full-viewport loads—avoid duplicating that layout ad hoc. Do not use loading **text** as the main pattern.
+- **Destructive actions:** Always confirm with **`src/components/common/ConfirmDialog.jsx`**; use **`confirmColor="error"`** and pass **`loading`** for async confirms.
+- **Success after mutations:** On the same page, use a **dismissible inline `Alert`** `severity="success"` with **`onClose`**. Reserve **`Snackbar`** for transient/global or post-navigation cases.
