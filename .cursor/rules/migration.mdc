@@ -1,9 +1,14 @@
 ---
 name: migration
 description: Migrating healthdesk-experimental to healthdesk
+globs:
+  - HealthDesk-Experimental/**
+  - docs/porting-experimental-to-minusone.md
 ---
 
 This project you're working on is a migration project from project "HealthDesk-Experimental" into our main project, "HealthDesk". The "HealthDesk-Experimental" folder is code from a version of our repo where the client has "vibe-coded" large amounts of the codebase, to the point where they're generally functional, but not production-ready. We need to merge these new components into the codebase gradually and carefully to avoid introducing bugs and inconsistencies with the main codebase. Both projects use React.
 
 "HealthDesk-Experimental" is in the respective folder as a symbolic link.
+
+**Mandatory runbook for any Experimental → MinusOne port** (roles, routes, features, rules, Functions): read and follow **`docs/porting-experimental-to-minusone.md`**. It covers discovery on the Experimental tree, routing and dashboard branches, allowlists (client + Functions + Firestore rules), and verification. Use PR/issue titles or bodies that mention **`porting-experimental-to-minusone`** or **`Experimental→MinusOne`** when the change is driven by this process.
 

@@ -8,6 +8,7 @@ const ACCOUNT_LIMITS = {
 
 exports.checkAccountLimit = functions.https.onCall(async (data, context) => {
   const { role } = data;
+  const normalizedRole = role === "p4" ? "patient" : role;
   const db = admin.firestore();
 
   try {
@@ -19,18 +20,18 @@ exports.checkAccountLimit = functions.https.onCall(async (data, context) => {
         ? statsDoc.data()
         : { patient: 0, professional: 0 };
 
-      if (stats[role] >= ACCOUNT_LIMITS[role]) {
+      if (stats[normalizedRole] >= ACCOUNT_LIMITS[normalizedRole]) {
         // Send email notification to admin
         await db.collection("emails").add({
           to: ["eric@ericmurphy.xyz", "drsclaud@aol.com"],
           message: {
             subject: `My HealthDesk: ${
-              role.charAt(0).toUpperCase() + role.slice(1)
+              normalizedRole.charAt(0).toUpperCase() + normalizedRole.slice(1)
             } Account Limit Reached`,
             html: `
               <p>The ${
-                role === "patient" ? "individual" : role
-              } account limit (${ACCOUNT_LIMITS[role]}) has been reached.</p>
+                normalizedRole === "patient" ? "individual" : normalizedRole
+              } account limit (${ACCOUNT_LIMITS[normalizedRole]}) has been reached.</p>
               <p>Current counts:</p>
               <ul>
                 <li>Patient accounts: ${stats.patient || 0}</li>
@@ -51,7 +52,7 @@ exports.checkAccountLimit = functions.https.onCall(async (data, context) => {
       transaction.set(
         statsRef,
         {
-          [role]: admin.firestore.FieldValue.increment(1),
+          [normalizedRole]: admin.firestore.FieldValue.increment(1),
         },
         { merge: true }
       );

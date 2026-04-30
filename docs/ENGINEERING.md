@@ -2,6 +2,10 @@
 
 This document is the human-readable source of truth for patterns we want across the codebase. Cursor rules under `.cursor/rules/` summarize parts of this for the AI; keep them in sync when you change conventions.
 
+## Porting from HealthDesk-Experimental (MinusOne)
+
+Whenever you bring a **role**, **route**, **feature**, or **backend behavior** from the **HealthDesk-Experimental** monorepo (junctioned next to this package as `../HealthDesk-Experimental/` from here; sibling folder at the workspace root) into this app, follow the canonical runbook: **[porting-experimental-to-minusone.md](./porting-experimental-to-minusone.md)**. Use the same vocabulary in issues and PRs when possible (e.g. **Experimental→MinusOne**, or keyword **porting-experimental-to-minusone**) so history and search stay consistent.
+
 ## UI / MUI
 
 - **Theme:** `src/config/theme.js` (`muiTheme`) defines palette, typography, and **component default props** (`Button`, `Card`, `TextField`, `Select`).

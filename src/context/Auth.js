@@ -993,7 +993,7 @@ export const AuthProvider = ({ children }) => {
         listingsUnsubRef.current = checkListings(user.uid);
         invoicesUnsubRef.current = checkInvoices(user.uid);
         // Set up medication and reminder snapshot listeners (only for patients)
-        if (role === "patient" && !decodedToken?.claims?.admin) {
+        if ((role === "patient" || role === "p4") && !decodedToken?.claims?.admin) {
           setupMedicationSnapshots(user.uid);
           setupTrackingDataSnapshot(user.uid);
         }

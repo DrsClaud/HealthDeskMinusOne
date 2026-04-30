@@ -52,7 +52,7 @@ service cloud.firestore {
         request.auth.uid == uid &&
         request.resource.data.keys().hasAll(['uid', 'email', 'name', 'lastName', 'role']) &&
         request.resource.data.uid == request.auth.uid &&
-        request.resource.data.role in ['patient', 'facility', 'professional', 'admin'];
+        request.resource.data.role in ['patient', 'p4', 'facility', 'professional', 'admin'];
       // Block self-escalation of privileged fields
       allow update: if isLoggedIn() &&
         request.auth.uid == uid &&

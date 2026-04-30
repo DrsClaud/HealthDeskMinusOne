@@ -441,7 +441,7 @@ const PricingControls = ({
         )}
       </Stack>
 
-      {role === "patient" &&
+      {(role === "patient" || role === "p4") &&
         !trialExpired &&
         Object.keys(prices).length > 0 && (
           <Box sx={{ mb: 4 }}>

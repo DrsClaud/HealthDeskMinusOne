@@ -78,7 +78,10 @@ const UpgradePage = () => {
     }
 
     const isTrialRole =
-      role === "patient" || role === "professional" || role === "facility";
+      role === "patient" ||
+      role === "p4" ||
+      role === "professional" ||
+      role === "facility";
 
     if (isTrialRole && canStartTrial) {
       const trialLengthDays = getTrialLengthForRole(role);
@@ -99,7 +102,7 @@ const UpgradePage = () => {
     if (role === "facility") {
       return "Upgrade to CareMap Plus to access all our features and supercharge your facility.";
     }
-    if (role === "patient") {
+    if (role === "patient" || role === "p4") {
       return "Upgrade to become a HealthDesk Member. Get unlimited access to Medical SuperIntelligence, your personal health assistant.";
     }
     if (role === "professional") {
@@ -124,7 +127,12 @@ const UpgradePage = () => {
       return "Resubscribe";
     }
 
-    if (role === "patient" || role === "professional" || role === "facility") {
+    if (
+      role === "patient" ||
+      role === "p4" ||
+      role === "professional" ||
+      role === "facility"
+    ) {
       if (canStartTrial) {
         return "Start Your Free Trial";
       }

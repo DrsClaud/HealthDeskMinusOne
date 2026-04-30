@@ -32,6 +32,7 @@ exports.checkEmailExists = functions.https.onCall(async (data) => {
 exports.checkRegistrationEligibility = functions.https.onCall(
   async (data, context) => {
     const { email, role } = data;
+    const normalizedRole = role === "p4" ? "patient" : role;
 
     if (!email) {
       throw new functions.https.HttpsError(
@@ -96,7 +97,7 @@ exports.checkRegistrationEligibility = functions.https.onCall(
         };
       }
       // Check account limit (skip for facility role)
-      if (role !== "facility") {
+      if (normalizedRole !== "facility") {
         const ACCOUNT_LIMITS = {
           patient: 300,
           professional: 300,
@@ -115,7 +116,7 @@ exports.checkRegistrationEligibility = functions.https.onCall(
           : { patient: 0, professional: 0 };
 
         // Check if limit reached
-        if (stats[role] >= ACCOUNT_LIMITS[role]) {
+        if (stats[normalizedRole] >= ACCOUNT_LIMITS[normalizedRole]) {
           // Send email notification to admin
           await admin
             .firestore()
@@ -124,12 +125,13 @@ exports.checkRegistrationEligibility = functions.https.onCall(
               to: ["eric@ericmurphy.xyz", "drsclaud@aol.com"],
               message: {
                 subject: `My HealthDesk: ${
-                  role.charAt(0).toUpperCase() + role.slice(1)
+                  normalizedRole.charAt(0).toUpperCase() +
+                  normalizedRole.slice(1)
                 } Account Limit Reached`,
                 html: `
               <p>The ${
-                role === "patient" ? "individual" : role
-              } account limit (${ACCOUNT_LIMITS[role]}) has been reached.</p>
+                normalizedRole === "patient" ? "individual" : normalizedRole
+              } account limit (${ACCOUNT_LIMITS[normalizedRole]}) has been reached.</p>
               <p>Current counts:</p>
               <ul>
                 <li>Patient accounts: ${stats.patient || 0}</li>
@@ -155,7 +157,7 @@ exports.checkRegistrationEligibility = functions.https.onCall(
           .doc("accounts")
           .set(
             {
-              [role]: admin.firestore.FieldValue.increment(1),
+              [normalizedRole]: admin.firestore.FieldValue.increment(1),
             },
             { merge: true },
           );

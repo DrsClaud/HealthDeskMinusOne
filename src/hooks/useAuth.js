@@ -116,7 +116,7 @@ export const useAuth = () => {
     }
     return (
       hasRole &&
-      ["patient", "professional", "facility"].includes(userData?.role) &&
+      ["patient", "p4", "professional", "facility"].includes(userData?.role) &&
       !userData?.hasUsedTrial &&
       !hasActiveSubscription
     );

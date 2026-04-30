@@ -1,5 +1,6 @@
 export const TRIAL_LENGTH_BY_ROLE = {
   patient: 3,
+  p4: 3,
   professional: 3,
   facility: 21,
   admin: 0, // Admins don't get trials - they manage org billing

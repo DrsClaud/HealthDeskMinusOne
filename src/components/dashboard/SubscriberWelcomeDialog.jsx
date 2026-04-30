@@ -15,7 +15,9 @@ const SubscriberWelcomeDialog = ({ open, onClose, userData }) => {
     if (role === "facility") {
       return "CareMap Plus";
     }
-    return role === "patient" ? "HealthDesk Member" : "HealthDesk Plus";
+    return role === "patient" || role === "p4"
+      ? "HealthDesk Member"
+      : "HealthDesk Plus";
   };
 
   const getWelcomeMessage = (role) => {
@@ -36,7 +38,7 @@ const SubscriberWelcomeDialog = ({ open, onClose, userData }) => {
       ];
     }
 
-    if (role === "patient") {
+    if (role === "patient" || role === "p4") {
       return [
         "Unlimited daily messages",
         "Ad-free experience",

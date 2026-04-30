@@ -109,6 +109,14 @@ export const PatientDrawer = ({ subscription, userData }) => {
     <>
       <EmailDialog open={showNoEmail} onClose={handleClose} onCopy={copyChat} />
       <List>
+        {userData?.role === "p4" && (
+          <NavListItem
+            icon={<ExitToAppRounded />}
+            text="P4 Workspace"
+            secondary="Patient Home"
+            link="/dashboard/p4"
+          />
+        )}
         <NavListItem
           icon={<SchoolRounded />}
           text="Basic Medical Library"

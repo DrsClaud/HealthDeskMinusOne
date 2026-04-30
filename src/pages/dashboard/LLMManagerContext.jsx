@@ -372,7 +372,7 @@ export const LLMManagerProvider = ({ children, user }) => {
   const switchViewingRole = useCallback((role) => {
     if (!user) return;
     
-    const allowedRoles = user.allowedViewingRoles || ['patient', 'p2', 'professional-chartmind', 'pro2'];
+    const allowedRoles = user.allowedViewingRoles || ['patient', 'p2', 'p4', 'professional-chartmind', 'pro2'];
     
     if (role === null || allowedRoles.includes(role)) {
       setViewingAs(role);

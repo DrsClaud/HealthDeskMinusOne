@@ -17,6 +17,20 @@ import MedicationsPage from "pages/dashboard/individual/MedicationsPage";
 import { db } from "services/firebase";
 import { PromptsManagerProvider } from "context/PromptsManager";
 import ChatPage from "components/chat_new/ChatPage";
+import P4WorkspacePage from "pages/dashboard/P4WorkspacePage";
+import { isPatientFamilyRole } from "constants/roles";
+
+const RoleGuard = ({
+  allowedRoles,
+  children,
+  fallback = <Navigate to="/dashboard" replace />,
+}) => {
+  const { userData, userLoading } = useAuth();
+
+  if (userLoading || !userData) return null;
+  if (!allowedRoles.includes(userData.role)) return fallback;
+  return children;
+};
 
 const PatientRoutes = () => {
   const { user, userData, subscription, isGlobalAdmin } = useAuth();
@@ -40,7 +54,10 @@ const PatientRoutes = () => {
           const userDoc = await db.collection("users").doc(user.uid).get();
           const userData = userDoc.data();
 
-          if (userData?.role === "patient" && !userData?.hideOnboardingDialog) {
+          if (
+            isPatientFamilyRole(userData?.role) &&
+            !userData?.hideOnboardingDialog
+          ) {
             setShowPatientOnboarding(true);
           }
         } catch (error) {
@@ -64,7 +81,21 @@ const PatientRoutes = () => {
         <Routes>
           <Route
             path="/"
-            element={<ChatPage assistantType="basic-medical-library" />}
+            element={
+              userData?.role === "p4" ? (
+                <Navigate to="/dashboard/p4" replace />
+              ) : (
+                <ChatPage assistantType="basic-medical-library" />
+              )
+            }
+          />
+          <Route
+            path="/p4"
+            element={
+              <RoleGuard allowedRoles={["p4"]}>
+                <P4WorkspacePage />
+              </RoleGuard>
+            }
           />
           <Route
             path="/advanced-library"

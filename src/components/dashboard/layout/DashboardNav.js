@@ -29,6 +29,7 @@ import {
   GlobalAdminDrawer,
   RegionalAdminDrawer,
 } from "./DrawerComponents";
+import { isPatientFamilyRole } from "constants/roles";
 
 const drawerWidth = 300;
 
@@ -227,7 +228,7 @@ const DashboardNav = ({ children }) => {
               />
             )}
 
-            {userData?.role === "patient" && isVerified && (
+            {isPatientFamilyRole(userData?.role) && isVerified && (
               <PatientDrawer subscription={subscription} userData={userData} />
             )}
 
