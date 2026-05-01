@@ -10,6 +10,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/functions";
 import { medicationService } from "../services/medicationService";
 import { adherenceService } from "../services/adherenceService";
+import { isChartmindAdminRole } from "constants/roles";
 
 export const AuthContext = React.createContext();
 
@@ -1057,7 +1058,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (!user?.uid || !userData?.role) return;
 
-    if (userData.role === "admin") {
+    if (userData.role === "admin" || isChartmindAdminRole(userData.role)) {
       setupOrganizationSnapshots(userData);
     }
 

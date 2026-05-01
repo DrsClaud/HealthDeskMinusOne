@@ -513,6 +513,7 @@ service cloud.firestore {
         'llm-manager-global',
         'llm-manager-regional',
         'chartmind-admin',
+        'chartmind-kijabe',
         'chartmind-supervisor',
         'dscr-admin'
       ]

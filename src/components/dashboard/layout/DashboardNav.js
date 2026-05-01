@@ -30,7 +30,7 @@ import {
   GlobalAdminDrawer,
   RegionalAdminDrawer,
 } from "./DrawerComponents";
-import { isPatientFamilyRole } from "constants/roles";
+import { isPatientFamilyRole, isChartmindAdminRole } from "constants/roles";
 
 const drawerWidth = 300;
 
@@ -241,7 +241,7 @@ const DashboardNav = ({ children }) => {
               />
             )}
 
-            {userData?.role === "admin" && isVerified && (
+            {(userData?.role === "admin" || isChartmindAdminRole(userData?.role)) && isVerified && (
               <ChartMindManagerDrawer />
             )}
 

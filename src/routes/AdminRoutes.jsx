@@ -8,6 +8,7 @@ import Settings from "components/dashboard/Settings";
 import { useAuth } from "hooks/useAuth";
 import DashboardLayout from "components/dashboard/DashboardLayout";
 import { PromptsManagerProvider } from "context/PromptsManager";
+import { isChartmindAdminRole } from "constants/roles";
 
 /**
  * AdminRoutes - Routes for ChartMind Manager (admin role)
@@ -17,11 +18,12 @@ import { PromptsManagerProvider } from "context/PromptsManager";
  * - Has subscription → Dashboard with Prompts + Organization
  */
 const AdminRoutes = () => {
-  const { user, subscription, subscriptionData } = useAuth();
+  const { user, userData, subscription, subscriptionData } = useAuth();
   const hasActiveSubscription = subscriptionData?.status === "active";
+  const isChartmindManager = isChartmindAdminRole(userData?.role);
 
-  // Show full-screen onboarding if no subscription
-  if (!hasActiveSubscription) {
+  // Org admins require an active subscription; ChartMind managers do not.
+  if (!hasActiveSubscription && !isChartmindManager) {
     return <AdminOnboarding />;
   }
 

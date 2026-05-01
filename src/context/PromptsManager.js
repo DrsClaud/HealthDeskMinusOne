@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { useAuth } from "hooks/useAuth";
 import promptRegistryService from "services/llm/promptRegistryService";
+import { isChartmindAdminRole } from "constants/roles";
 
 // ============================================
 // Module helpers (not exported)
@@ -83,7 +84,9 @@ export const PromptsManagerProvider = ({ children }) => {
   );
 
   const canManageAsGlobal = Boolean(isGlobalAdmin);
-  const canManageAsOrg = userData?.role === "admin" && Boolean(organizationId);
+  const canManageAsOrg =
+    (userData?.role === "admin" || isChartmindAdminRole(userData?.role)) &&
+    Boolean(organizationId);
   const canManageRegional = Boolean(isRegionalAdmin && regionScope);
   const canView = canManageAsGlobal || canManageAsOrg || canManageRegional;
 

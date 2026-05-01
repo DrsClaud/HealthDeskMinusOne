@@ -16,7 +16,7 @@ import Loading from "components/Loading";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { shouldSkipMfaEnrollmentUi } from "utils/isDevEnvironment";
-import { isPatientFamilyRole } from "constants/roles";
+import { isPatientFamilyRole, isChartmindAdminRole } from "constants/roles";
 
 const DashboardPage = () => {
   const { user, userLoading, userData, isGlobalAdmin } = useAuth();
@@ -180,7 +180,7 @@ const DashboardPage = () => {
         <PatientRoutes />
       ) : userData?.role === "professional" ? (
         <ProfessionalRoutes />
-      ) : userData?.role === "admin" ? (
+      ) : userData?.role === "admin" || isChartmindAdminRole(userData?.role) ? (
         <AdminRoutes />
       ) : (
         <DashboardRoutes />

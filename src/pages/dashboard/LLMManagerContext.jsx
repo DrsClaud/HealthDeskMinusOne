@@ -18,6 +18,7 @@
  */
 
 import React, { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
+import { isChartmindAdminRole } from 'constants/roles';
 
 // ============================================
 // LLM MANAGER ROLE CONSTANTS
@@ -36,6 +37,7 @@ export const LLM_MANAGER_ROLES = [
 
 // ChartMind admin is a separate role that has implicit local LLM management
 export const CHARTMIND_ADMIN_ROLE = 'chartmind-admin';
+export const CHARTMIND_KIJABE_ROLE = 'chartmind-kijabe';
 
 // ChartMind supervisor: clinic-scoped Position 3 only (same Query Manager UI, P1/P2 read-only, P3 editable per clinic)
 export const CHARTMIND_SUPERVISOR_ROLE = 'chartmind-supervisor';
@@ -88,7 +90,7 @@ export const isChartmindSupervisor = (user) => {
  */
 export const isChartmindAdmin = (user) => {
   if (!user?.role) return false;
-  return user.role === CHARTMIND_ADMIN_ROLE;
+  return isChartmindAdminRole(user.role);
 };
 
 /**
@@ -127,6 +129,7 @@ export const getLLMManagerLevel = (user) => {
     case LLM_MANAGER_LEVELS.REGIONAL:
       return 'regional';
     case CHARTMIND_ADMIN_ROLE:
+    case CHARTMIND_KIJABE_ROLE:
       return 'chartmind-admin';
     case CHARTMIND_SUPERVISOR_ROLE:
       return 'chartmind-supervisor';

@@ -8,6 +8,7 @@ import { useAuth } from "hooks/useAuth";
 import { usePromptsManager } from "hooks/usePromptsManager";
 import { LLMManagerProvider } from "pages/dashboard/LLMManagerContext";
 import GraphMonthlyUsageChartmind from "components/dashboard/admin/Graphs/GraphMonthlyUsageChartmind";
+import { isChartmindAdminRole } from "constants/roles";
 import PromptCard from "./components/PromptCard";
 import PromptEditorDialog from "./components/PromptEditorDialog";
 
@@ -35,7 +36,9 @@ const PromptsManagerContent = () => {
     useAuth();
   const regionScope = String(userData?.region || "").trim() || null;
   const canManageAsGlobal = Boolean(isGlobalAdmin);
-  const canManageAsOrg = userData?.role === "admin" && Boolean(organizationId);
+  const canManageAsOrg =
+    (userData?.role === "admin" || isChartmindAdminRole(userData?.role)) &&
+    Boolean(organizationId);
   const canManageRegional = Boolean(isRegionalAdmin && regionScope);
   const {
     prompts,
