@@ -12,12 +12,21 @@ import Settings from "components/dashboard/Settings";
 import PatientOnboardingDialog from "components/dashboard/PatientOnboardingDialog";
 import HealthRecords from "components/dashboard/HealthRecords";
 import MedicationsPage from "pages/dashboard/individual/MedicationsPage";
-// TODO: MedicationTrackingPage disabled until Twilio BAA is in place (no reminders = no tracking utility)
-// import MedicationTrackingPage from "pages/dashboard/individual/MedicationTrackingPage";
+import MedicationTrackingPage from "pages/dashboard/individual/MedicationTrackingPage";
+import DiscussSymptomsPage from "pages/dashboard/individual/DiscussSymptomsPage";
 import { db } from "services/firebase";
 import { PromptsManagerProvider } from "context/PromptsManager";
 import ChatPage from "components/chat_new/ChatPage";
 import P4WorkspacePage from "pages/dashboard/P4WorkspacePage";
+import MedicalSuperIntelligencePage from "pages/dashboard/MedicalSuperIntelligencePage";
+import ReviewHistoryPage from "pages/dashboard/patient/ReviewHistoryPage";
+import CreateAffiliationPage from "pages/dashboard/patient/CreateAffiliationPage";
+import DischargeInstructionsPage from "pages/dashboard/patient/DischargeInstructionsPage";
+import DataLinksPage from "pages/dashboard/patient/DataLinksPage";
+import SecureLinkPage from "pages/dashboard/patient/SecureLinkPage";
+import MyQueuePage from "pages/dashboard/patient/MyQueuePage";
+import PatientMessagesInboxPage from "pages/dashboard/patient/PatientMessagesInboxPage";
+import PatientMessageDetailPage from "pages/dashboard/patient/PatientMessageDetailPage";
 import { isPatientFamilyRole } from "constants/roles";
 
 const RoleGuard = ({
@@ -44,7 +53,12 @@ const PatientRoutes = () => {
     if (segments[0] !== "dashboard") return false;
     if (segments.length === 1) return true;
     const sub = segments[1];
-    return sub === "advanced-library" || sub === "virtual-md";
+    return (
+      sub === "advanced-library" ||
+      sub === "virtual-md" ||
+      sub === "messages" ||
+      sub === "symptom-check"
+    );
   };
 
   useEffect(() => {
@@ -99,24 +113,129 @@ const PatientRoutes = () => {
           />
           <Route
             path="/advanced-library"
-            element={<ChatPage assistantType="advanced-medical-library" />}
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <ChatPage assistantType="advanced-medical-library" />
+              </RoleGuard>
+            }
           />
           <Route
             path="/virtual-md"
-            element={<ChatPage assistantType="virtual-md" />}
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <ChatPage assistantType="virtual-md" />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/medical-superintelligence"
+            element={
+              <RoleGuard allowedRoles={["p4"]}>
+                <MedicalSuperIntelligencePage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/symptom-check"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <DiscussSymptomsPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <PatientMessagesInboxPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/messages/:threadId"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <PatientMessageDetailPage />
+              </RoleGuard>
+            }
           />
 
           <Route
             path="/settings"
             element={<Settings uid={user?.uid} subscription={subscription} />}
           />
-          <Route path="/health-records" element={<HealthRecords />} />
-          <Route path="/medications" element={<MedicationsPage />} />
-          {/* TODO: Medication tracking disabled until Twilio BAA is in place */}
-          {/* <Route
+          <Route
+            path="/health-records"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <HealthRecords />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/medications"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <MedicationsPage />
+              </RoleGuard>
+            }
+          />
+          <Route
             path="/medication-tracking"
-            element={<MedicationTrackingPage />}
-          /> */}
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <MedicationTrackingPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/review-history"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <ReviewHistoryPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/create-affiliation"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <CreateAffiliationPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/discharge-instructions"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <DischargeInstructionsPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/data-links"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <DataLinksPage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/my-queue"
+            element={
+              <RoleGuard allowedRoles={["patient", "p4"]}>
+                <MyQueuePage />
+              </RoleGuard>
+            }
+          />
+          <Route
+            path="/secureLink"
+            element={
+              <RoleGuard allowedRoles={["p4"]}>
+                <SecureLinkPage />
+              </RoleGuard>
+            }
+          />
 
           {!userData?.dailyPassExpiresAt && (
             <Route path="/upgrade" element={<UpgradePage />} />

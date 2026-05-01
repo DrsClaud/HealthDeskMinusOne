@@ -4,6 +4,7 @@ const { db } = require("../config/firebase");
 
 const TRIAL_LENGTH_DAYS = {
   patient: 3,
+  p4: 3,
   professional: 3,
   facility: 21,
   admin: 0, // Admins don't get trials - they manage billing for their org
@@ -36,16 +37,17 @@ exports.startTrial = functions.https.onCall(async (data, context) => {
 
     const userData = userDoc.data();
 
-    // Check if user is eligible for trials (patient, professional, facility)
+    // Check if user is eligible for trials (patient-family, professional, facility)
     // Admins are not eligible for trials - they manage org billing
     if (
       userData.role !== "patient" &&
+      userData.role !== "p4" &&
       userData.role !== "professional" &&
       userData.role !== "facility"
     ) {
       throw new functions.https.HttpsError(
         "failed-precondition",
-        "Only patients, professionals, and facilities can start trials."
+        "Only patient-family, professionals, and facilities can start trials."
       );
     }
 

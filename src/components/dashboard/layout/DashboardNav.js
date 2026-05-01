@@ -8,6 +8,7 @@ import {
   Toolbar,
   IconButton,
   Divider,
+  Button,
   useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -138,6 +139,7 @@ const DashboardNav = ({ children }) => {
   const handleDesktopDrawerClose = () => setDrawerOpen(false);
 
   const drawerExpanded = isDesktop ? drawerOpen : mobileOpen;
+  const showP4IntroButton = userData?.role === "p4";
 
   const handleLogout = async () => {
     await logout();
@@ -287,6 +289,22 @@ const DashboardNav = ({ children }) => {
           }),
         }}
       >
+        <Toolbar
+          sx={{
+            display: { xs: "none", sm: "flex" },
+            justifyContent: "flex-end",
+            minHeight: 54,
+          }}
+        >
+          {showP4IntroButton ? (
+            <Button
+              size="small"
+              onClick={() => navigate("/dashboard/medical-superintelligence")}
+            >
+              Medical SuperIntelligence3
+            </Button>
+          ) : null}
+        </Toolbar>
         <Toolbar sx={{ display: { xs: "flex", sm: "none" } }}>
           <IconButton
             aria-label="open drawer"

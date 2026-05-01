@@ -41,6 +41,8 @@ import BusinessRounded from "@mui/icons-material/BusinessRounded";
 import NoteAltRounded from "@mui/icons-material/NoteAltRounded";
 import HistoryRounded from "@mui/icons-material/HistoryRounded";
 import FactCheckRounded from "@mui/icons-material/FactCheckRounded";
+import AssignmentRounded from "@mui/icons-material/AssignmentRounded";
+import LinkIcon from "@mui/icons-material/Link";
 import NavListItem from "components/common/NavListItem";
 import { ChatContext } from "context/Chat";
 import { useChat } from "components/chatbot/ContextBox/useChat";
@@ -62,6 +64,8 @@ export const PatientDrawer = ({ subscription, userData }) => {
   const disabled = !messages || messages?.length < 1;
   const [showNoEmail, setShowNoEmail] = useState(false);
   const trialLengthDays = getTrialLengthForRole(userData?.role);
+  const isP4 = userData?.role === "p4";
+  const messageIcon = <ChatRounded />;
 
   const handleClose = () => setShowNoEmail(false);
 
@@ -109,7 +113,7 @@ export const PatientDrawer = ({ subscription, userData }) => {
     <>
       <EmailDialog open={showNoEmail} onClose={handleClose} onCopy={copyChat} />
       <List>
-        {userData?.role === "p4" && (
+        {isP4 && (
           <NavListItem
             icon={<ExitToAppRounded />}
             text="P4 Workspace"
@@ -117,43 +121,99 @@ export const PatientDrawer = ({ subscription, userData }) => {
             link="/dashboard/p4"
           />
         )}
-        <NavListItem
-          icon={<SchoolRounded />}
-          text="Basic Medical Library"
-          secondary="Simple medical education"
-          link="/dashboard"
-        />
-        <NavListItem
-          icon={<LibraryBooksRounded />}
-          text="Advanced Medical Library"
-          secondary="Detailed medical education"
-          link="/dashboard/advanced-library"
-        />
-        <NavListItem
-          icon={<MedicalServicesRounded />}
-          text="Virtual MD"
-          secondary="Interactive medical education"
-          link="/dashboard/virtual-md"
-        />
+        {isP4 ? (
+          <>
+            <NavListItem
+              icon={<QuestionAnswerRounded />}
+              text="Medical SuperIntelligence³"
+              secondary="Platform philosophy"
+              link="/dashboard/medical-superintelligence"
+            />
+            <NavListItem
+              icon={<MedicalServicesRounded />}
+              text="Symptom Checker"
+              secondary="Check your symptoms"
+              link="/dashboard/symptom-check"
+            />
+          </>
+        ) : (
+          <>
+            <NavListItem
+              icon={<SchoolRounded />}
+              text="Basic Medical Library"
+              secondary="Simple medical education"
+              link="/dashboard"
+            />
+            <NavListItem
+              icon={<LibraryBooksRounded />}
+              text="Advanced Medical Library"
+              secondary="Detailed medical education"
+              link="/dashboard/advanced-library"
+            />
+            <NavListItem
+              icon={<MedicalServicesRounded />}
+              text="Virtual MD"
+              secondary="Interactive medical education"
+              link="/dashboard/virtual-md"
+            />
+          </>
+        )}
       </List>
       <Divider />
       <List>
-        <NavListItem
-          icon={<HealthAndSafetyRounded />}
-          text="My HealthRecords"
-          link="/dashboard/health-records"
-        />
-        <NavListItem
-          icon={<MedicationRounded />}
-          text="My Medications"
-          link="/dashboard/medications"
-        />
-        {/* TODO: Medication Tracking disabled until Twilio BAA is in place */}
-        {/* <NavListItem
-          icon={<TrendingUpRounded />}
-          text="Medication Tracking"
-          link="/dashboard/medication-tracking"
-        /> */}
+        {isP4 ? (
+          <>
+            <NavListItem
+              icon={<MedicationRounded />}
+              text="My Medications"
+              link="/dashboard/medications"
+            />
+            <NavListItem
+              icon={<HistoryRounded />}
+              text="Update My Medications"
+              link="/dashboard/review-history"
+            />
+            <NavListItem
+              icon={<TrendingUpRounded />}
+              text="Medication Tracking"
+              link="/dashboard/medication-tracking"
+            />
+            <NavListItem
+              icon={<HealthAndSafetyRounded />}
+              text="Continuous Medical Record"
+              link="/dashboard/health-records"
+            />
+            <NavListItem
+              icon={<LinkIcon />}
+              text="Link To An EHR"
+              link="/dashboard/secureLink"
+            />
+            <NavListItem
+              icon={messageIcon}
+              text="Messages"
+              link="/dashboard/messages"
+              matchPathPrefix
+            />
+            <NavListItem
+              icon={<AssignmentRounded />}
+              text="Discharge Instructions"
+              link="/dashboard/discharge-instructions"
+            />
+          </>
+        ) : (
+          <>
+            <NavListItem
+              icon={<HealthAndSafetyRounded />}
+              text="My HealthRecords"
+              link="/dashboard/health-records"
+            />
+            <NavListItem
+              icon={<MedicationRounded />}
+              text="My Medications"
+              link="/dashboard/medications"
+            />
+          </>
+        )}
 
         {!subscription && !hasActiveTrial && !hasActiveDailyPass && (
           <NavListItem
